@@ -88,7 +88,7 @@ namespace VoltMartTestWork.Data.Repositories
         }
         public async Task<bool> ExistsEmployee(int id)
         {
-            return await dbContext.Employees.AllAsync(e => e.Id == id);
+            return await dbContext.Employees.AnyAsync(e => e.Id == id);
         }
     }
 }
