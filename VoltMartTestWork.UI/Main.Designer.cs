@@ -47,7 +47,7 @@
             // 
             DeleteButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             DeleteButton.BackColor = Color.FromArgb(255, 128, 128);
-            DeleteButton.Location = new Point(782, 498);
+            DeleteButton.Location = new Point(131, 498);
             DeleteButton.Name = "DeleteButton";
             DeleteButton.Size = new Size(113, 51);
             DeleteButton.TabIndex = 2;
@@ -58,8 +58,8 @@
             // AddButton
             // 
             AddButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            AddButton.BackColor = Color.FromArgb(255, 255, 128);
-            AddButton.Location = new Point(663, 498);
+            AddButton.BackColor = Color.FromArgb(128, 255, 128);
+            AddButton.Location = new Point(12, 498);
             AddButton.Name = "AddButton";
             AddButton.Size = new Size(113, 51);
             AddButton.TabIndex = 3;

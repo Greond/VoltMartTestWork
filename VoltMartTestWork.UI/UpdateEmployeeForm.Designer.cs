@@ -1,6 +1,6 @@
 ﻿namespace VoltMartTestWork.UI
 {
-    partial class AddNewEmployeeForm
+    partial class UpdateEmployeeForm
     {
         /// <summary>
         /// Required designer variable.
@@ -73,7 +73,6 @@
             SaveButton.TabIndex = 0;
             SaveButton.Text = "Сохранить";
             SaveButton.UseVisualStyleBackColor = false;
-            SaveButton.Click += SaveButton_Click;
             // 
             // PropertiesPanel
             // 
