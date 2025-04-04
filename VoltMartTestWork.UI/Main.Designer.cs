@@ -31,6 +31,7 @@
             dataGridView1 = new DataGridView();
             DeleteButton = new Button();
             AddButton = new Button();
+            ChangeButton = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -47,7 +48,7 @@
             // 
             DeleteButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             DeleteButton.BackColor = Color.FromArgb(255, 128, 128);
-            DeleteButton.Location = new Point(131, 498);
+            DeleteButton.Location = new Point(250, 498);
             DeleteButton.Name = "DeleteButton";
             DeleteButton.Size = new Size(113, 51);
             DeleteButton.TabIndex = 2;
@@ -67,11 +68,24 @@
             AddButton.UseVisualStyleBackColor = false;
             AddButton.Click += AddButton_Click;
             // 
+            // ChangeButton
+            // 
+            ChangeButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            ChangeButton.BackColor = Color.FromArgb(255, 255, 128);
+            ChangeButton.Location = new Point(131, 498);
+            ChangeButton.Name = "ChangeButton";
+            ChangeButton.Size = new Size(113, 51);
+            ChangeButton.TabIndex = 4;
+            ChangeButton.Text = "Изменить";
+            ChangeButton.UseVisualStyleBackColor = false;
+            ChangeButton.Click += ChangeButton_Click;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(912, 561);
+            Controls.Add(ChangeButton);
             Controls.Add(AddButton);
             Controls.Add(DeleteButton);
             Controls.Add(dataGridView1);
@@ -88,5 +102,6 @@
         private DataGridView dataGridView1;
         private Button DeleteButton;
         private Button AddButton;
+        private Button ChangeButton;
     }
 }

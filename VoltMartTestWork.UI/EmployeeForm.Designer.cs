@@ -1,6 +1,6 @@
 ﻿namespace VoltMartTestWork.UI
 {
-    partial class AddNewEmployeeForm
+    partial class EmployeeForm
     {
         /// <summary>
         /// Required designer variable.
@@ -111,6 +111,7 @@
             dateTimePickerHireDate.Name = "dateTimePickerHireDate";
             dateTimePickerHireDate.Size = new Size(285, 23);
             dateTimePickerHireDate.TabIndex = 0;
+            dateTimePickerHireDate.ShowCheckBox = true;
             // 
             // groupBox9
             // 
@@ -191,6 +192,7 @@
             dateTimePickerBirthday.Name = "dateTimePickerBirthday";
             dateTimePickerBirthday.Size = new Size(285, 23);
             dateTimePickerBirthday.TabIndex = 0;
+            dateTimePickerBirthday.ShowCheckBox = true;
             // 
             // groupBox5
             // 

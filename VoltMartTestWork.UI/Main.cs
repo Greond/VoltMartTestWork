@@ -24,10 +24,10 @@ namespace VoltMartTestWork.UI
 
         private async void AddButton_Click(object sender, EventArgs e)
         {
-            AddNewEmployeeForm addNewEmployeeForm = new AddNewEmployeeForm();
+            EmployeeForm addNewEmployeeForm = new EmployeeForm();
             if (addNewEmployeeForm.ShowDialog() == DialogResult.OK)
             {
-                Employee? newEmployee = addNewEmployeeForm.NewEmployee;
+                Employee? newEmployee = addNewEmployeeForm.SelectedEmployee;
 
                 if (newEmployee != null)
                 {
@@ -46,6 +46,43 @@ namespace VoltMartTestWork.UI
                     }
                 }
             }
+        }
+        private async void ChangeButton_Click(object sender, EventArgs e)
+        {
+
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                try
+                {
+                    // Получаем выделенную строку
+                    DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+
+                    // Получаем объект Employee, связанный с выделенной строкой
+                    Employee employeeToUpdate = (Employee)selectedRow.DataBoundItem;
+
+                    if (employeeToUpdate != null)
+                    {
+                        EmployeeForm updateEmployeeForm = new EmployeeForm(employeeToUpdate);
+                        if (updateEmployeeForm.ShowDialog() == DialogResult.OK)
+                        {
+                            // обновление
+                            await _employeeRepository.UpdateEmployeeAsync(updateEmployeeForm.SelectedEmployee);
+                            await LoadData();
+                            MessageBox.Show("Сотрудник успешно обновлён.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при обновление сотрудника: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите строку для изменения.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
         }
         private async void DeleteButton_Click(object sender, EventArgs e)
         {
@@ -67,7 +104,7 @@ namespace VoltMartTestWork.UI
                         if (result == DialogResult.Yes)
                         {
                             // Удаляем сотрудника из базы данных
-                            await _employeeRepository.DeleteEmployeeAsync(employeeToDelete.Id); 
+                            await _employeeRepository.DeleteEmployeeAsync(employeeToDelete.Id);
 
 
                             //Обновляем DataGridView

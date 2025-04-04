@@ -66,13 +66,14 @@
             // SaveButton
             // 
             SaveButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            SaveButton.BackColor = Color.FromArgb(128, 255, 128);
+            SaveButton.BackColor = Color.FromArgb(255, 255, 128);
             SaveButton.Location = new Point(12, 645);
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(468, 52);
             SaveButton.TabIndex = 0;
-            SaveButton.Text = "Сохранить";
+            SaveButton.Text = "Изменить";
             SaveButton.UseVisualStyleBackColor = false;
+            SaveButton.Click += SaveButton_Click;
             // 
             // PropertiesPanel
             // 
@@ -286,7 +287,7 @@
             textBoxFirstName.Size = new Size(441, 23);
             textBoxFirstName.TabIndex = 1;
             // 
-            // AddNewEmployeeForm
+            // UpdateEmployeeForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -294,7 +295,7 @@
             Controls.Add(PropertiesPanel);
             Controls.Add(SaveButton);
             MinimumSize = new Size(508, 748);
-            Name = "AddNewEmployeeForm";
+            Name = "UpdateEmployeeForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Добавить";
             PropertiesPanel.ResumeLayout(false);
