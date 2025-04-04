@@ -1,111 +1,98 @@
 using System.ComponentModel;
 using VoltMartTestWork.Core.Interfaces;
 using VoltMartTestWork.Core.Models;
+using VoltMartTestWork.Data.Repositories;
 
 namespace VoltMartTestWork.UI
 {
     public partial class Main : Form
     {
-        private readonly IEmployeeRepository _mainRepository;
-        List<Employee> MainData;
-        private List<Employee> _addedEmployees = new List<Employee>();
-        private List<Employee> _modifiedEmployees = new List<Employee>();
-        private List<Employee> _deletedEmployees = new List<Employee>();
+        private readonly IEmployeeRepository _employeeRepository;
+        List<Employee> Employees;
         public Main(IEmployeeRepository employeeRepository)
         {
             InitializeComponent();
-            _mainRepository = employeeRepository;
+            _employeeRepository = employeeRepository;
 
         }
 
         private async void Form1_Load(object sender, EventArgs e)
         {
             await LoadData();
-            dataGridView1.DataSource = MainData;
         }
 
-        private async void SaveButton_Click(object sender, EventArgs e)
+
+        private async void AddButton_Click(object sender, EventArgs e)
         {
-            try
+            AddNewEmployeeForm addNewEmployeeForm = new AddNewEmployeeForm();
+            if (addNewEmployeeForm.ShowDialog() == DialogResult.OK)
             {
-                // 1. Добавление новых сотрудников
-                foreach (var employee in _addedEmployees)
+                Employee? newEmployee = addNewEmployeeForm.NewEmployee;
+
+                if (newEmployee != null)
                 {
-                    await _mainRepository.AddEmployeeAsync(employee);
-                }
-
-                // 2. Обновление измененных сотрудников
-                foreach (var employee in _modifiedEmployees)
-                {
-                    await _mainRepository.UpdateEmployeeAsync(employee);
-                }
-
-                // 3. Удаление удаленных сотрудников
-                foreach (var employee in _deletedEmployees)
-                {
-                    await _mainRepository.DeleteEmployeeAsync(employee.Id);
-                }
-
-                // Очистка списков после успешного сохранения
-                _addedEmployees.Clear();
-                _modifiedEmployees.Clear();
-                _deletedEmployees.Clear();
-
-                // Обновление DataGridView (перезагрузка данных из БД)
-                await LoadData();
-
-                MessageBox.Show("Изменения сохранены.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при сохранении изменений: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        // Обработчик для новых строк
-        private void dataGridView1_UserAddedRow(object sender, DataGridViewRowEventArgs e)
-        {
-            Employee newEmployee = (Employee)e.Row.DataBoundItem;
-            if (newEmployee != null)
-            {
-                _addedEmployees.Add(newEmployee);
-            }
-        }
-
-        // Обработчик для изменений строк
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                Employee changedEmployee = (Employee)dataGridView1.Rows[e.RowIndex].DataBoundItem;
-                if (changedEmployee != null && !_addedEmployees.Contains(changedEmployee)) // Проверяем, не является ли строка новой
-                {
-                    if (!_modifiedEmployees.Contains(changedEmployee))
+                    // Добавляем нового сотрудника
+                    try
                     {
-                        _modifiedEmployees.Add(changedEmployee);
+                        await _employeeRepository.AddEmployeeAsync(newEmployee);
+                        //Обновляем DataGridView
+                        await LoadData();
+
+                        MessageBox.Show("Сотрудник успешно добавлен.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при добавлении сотрудника: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
         }
-
-        // Обработчик для удаления строк
-        private void dataGridView1_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+        private async void DeleteButton_Click(object sender, EventArgs e)
         {
-            Employee deletedEmployee = (Employee)e.Row.DataBoundItem;
-            if (deletedEmployee != null)
+            if (dataGridView1.SelectedRows.Count > 0)
             {
-                _deletedEmployees.Add(deletedEmployee);
+                try
+                {
+                    // Получаем выделенную строку
+                    DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+
+                    // Получаем объект Employee, связанный с выделенной строкой
+                    Employee employeeToDelete = (Employee)selectedRow.DataBoundItem;
+
+                    if (employeeToDelete != null)
+                    {
+                        //Отображаем сообщение с подтверждением удаления
+                        DialogResult result = MessageBox.Show($"Вы уверены, что хотите удалить сотрудника '{employeeToDelete.Firstname} {employeeToDelete.Lastname}'?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            // Удаляем сотрудника из базы данных
+                            await _employeeRepository.DeleteEmployeeAsync(employeeToDelete.Id); 
+
+
+                            //Обновляем DataGridView
+                            await LoadData();
+
+                            MessageBox.Show("Сотрудник успешно удален.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при удалении сотрудника: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите строку для удаления.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-        private void AddButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private async Task LoadData()
         {
             try
             {
-                MainData = await _mainRepository.GetEmployees();
+                Employees = await _employeeRepository.GetEmployees();
+                dataGridView1.DataSource = Employees;
             }
             catch (Exception ex)
             {

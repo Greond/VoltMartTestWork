@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             dataGridView1 = new DataGridView();
-            SaveButton = new Button();
             DeleteButton = new Button();
             AddButton = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -43,21 +42,6 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(888, 480);
             dataGridView1.TabIndex = 0;
-            dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
-            dataGridView1.UserAddedRow += dataGridView1_UserAddedRow;
-            dataGridView1.UserDeletedRow += dataGridView1_UserDeletedRow;
-            // 
-            // SaveButton
-            // 
-            SaveButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            SaveButton.BackColor = Color.FromArgb(128, 255, 128);
-            SaveButton.Location = new Point(12, 498);
-            SaveButton.Name = "SaveButton";
-            SaveButton.Size = new Size(113, 51);
-            SaveButton.TabIndex = 1;
-            SaveButton.Text = "Сохранить";
-            SaveButton.UseVisualStyleBackColor = false;
-            SaveButton.Click += SaveButton_Click;
             // 
             // DeleteButton
             // 
@@ -69,6 +53,7 @@
             DeleteButton.TabIndex = 2;
             DeleteButton.Text = "Удалить";
             DeleteButton.UseVisualStyleBackColor = false;
+            DeleteButton.Click += DeleteButton_Click;
             // 
             // AddButton
             // 
@@ -80,7 +65,7 @@
             AddButton.TabIndex = 3;
             AddButton.Text = "Добавить";
             AddButton.UseVisualStyleBackColor = false;
-            AddButton.Click += this.AddButton_Click;
+            AddButton.Click += AddButton_Click;
             // 
             // Main
             // 
@@ -89,7 +74,6 @@
             ClientSize = new Size(912, 561);
             Controls.Add(AddButton);
             Controls.Add(DeleteButton);
-            Controls.Add(SaveButton);
             Controls.Add(dataGridView1);
             MinimumSize = new Size(928, 600);
             Name = "Main";
@@ -102,7 +86,6 @@
         #endregion
 
         private DataGridView dataGridView1;
-        private Button SaveButton;
         private Button DeleteButton;
         private Button AddButton;
     }
