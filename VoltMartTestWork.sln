@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoltMartTestWork.Core", "Vo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoltMartTestWork.Data", "VoltMartTestWork.Data\VoltMartTestWork.Data.csproj", "{AA0DDCC0-0A8B-4F98-B57F-8B65D8C2C909}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoltMartTestWork.UI", "VoltMartTestWork.UI\VoltMartTestWork.UI.csproj", "{DF4E5E91-A8B7-42BA-9C4F-B138BB8B85ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoltMartTestWork.UI", "VoltMartTestWork.UI\VoltMartTestWork.UI.csproj", "{DF4E5E91-A8B7-42BA-9C4F-B138BB8B85ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{FDFCF31E-E9AF-4C60-92CD-EE6A78CBCA02}"
+	ProjectSection(SolutionItems) = preProject
+		SqlQueryTestTable.sql = SqlQueryTestTable.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
