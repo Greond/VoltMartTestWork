@@ -6,6 +6,7 @@ namespace VoltMartTestWork.Core.Models;
 
 public partial class Employee : BaseModel<int>
 {
+    public int Id { get; set; }
     [Required(ErrorMessage = "Имя обязательно для заполнения")]
     [StringLength(255, MinimumLength = 2, ErrorMessage = "Длина имени должна быть от 2 до 255 символов")]
     public string Firstname { get; set; }

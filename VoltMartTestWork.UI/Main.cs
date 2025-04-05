@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using VoltMartTestWork.Core.Interfaces.IRepositories;
+using VoltMartTestWork.Core.Interfaces.IServices;
 using VoltMartTestWork.Core.Models;
 using VoltMartTestWork.Data.Repositories;
 
@@ -7,12 +8,12 @@ namespace VoltMartTestWork.UI
 {
     public partial class Main : Form
     {
-        private readonly IEmployeeRepository _employeeRepository;
-        List<Employee> Employees;
-        public Main(IEmployeeRepository employeeRepository)
+        private readonly IEmployeeService _employeeService;
+        IEnumerable<Employee> Employees;
+        public Main(IEmployeeService employeeService)
         {
             InitializeComponent();
-            _employeeRepository = employeeRepository;
+            _employeeService = employeeService;
 
         }
 
@@ -34,7 +35,7 @@ namespace VoltMartTestWork.UI
                     // Добавляем нового сотрудника
                     try
                     {
-                        await _employeeRepository.AddEmployeeAsync(newEmployee);
+                        await _employeeService.CreateEmployee(newEmployee);
                         //Обновляем DataGridView
                         await LoadData();
 
@@ -66,7 +67,7 @@ namespace VoltMartTestWork.UI
                         if (updateEmployeeForm.ShowDialog() == DialogResult.OK)
                         {
                             // обновление
-                            await _employeeRepository.UpdateEmployeeAsync(updateEmployeeForm.SelectedEmployee);
+                            await _employeeService.UpdateEmployee(updateEmployeeForm.SelectedEmployee);
                             await LoadData();
                             MessageBox.Show("Сотрудник успешно обновлён.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
@@ -104,7 +105,7 @@ namespace VoltMartTestWork.UI
                         if (result == DialogResult.Yes)
                         {
                             // Удаляем сотрудника из базы данных
-                            await _employeeRepository.DeleteEmployeeAsync(employeeToDelete.Id);
+                            await _employeeService.DeleteEmployee(employeeToDelete.Id);
 
 
                             //Обновляем DataGridView
@@ -128,7 +129,7 @@ namespace VoltMartTestWork.UI
         {
             try
             {
-                Employees = await _employeeRepository.GetEmployees();
+                Employees = await _employeeService.GetEmployees();
                 dataGridView1.DataSource = Employees;
             }
             catch (Exception ex)

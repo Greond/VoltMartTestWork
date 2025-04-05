@@ -6,6 +6,8 @@ using System.Configuration;
 using System;
 using VoltMartTestWork.Core.Interfaces.IRepositories;
 using VoltMartTestWork.Data;
+using VoltMartTestWork.Core.Interfaces.IServices;
+using VoltMartTestWork.Core.Services;
 namespace VoltMartTestWork.UI
 {
     internal static class Program
@@ -25,15 +27,18 @@ namespace VoltMartTestWork.UI
             // Регистрация зависимостей
             services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql("Host=localhost;Database=employeedb;Username=postgres;Password=postgres"));
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<Main>();
+
+            //region Repositories
+            services.AddTransient<IEmployeeRepository, EmployeeRepository>();
 
             // Создание ServiceProvider
             using (ServiceProvider serviceProvider = services.BuildServiceProvider())
             {
                 // Получение экземпляра главной формы из ServiceProvider
-                var form1 = serviceProvider.GetRequiredService<Main>();
-                Application.Run(form1);
+                var main = serviceProvider.GetRequiredService<Main>();
+                Application.Run(main);
             }
         }
 

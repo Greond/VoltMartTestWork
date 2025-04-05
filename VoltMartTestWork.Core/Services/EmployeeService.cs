@@ -9,7 +9,7 @@ using VoltMartTestWork.Core.Models;
 
 namespace VoltMartTestWork.Core.Services
 {
-    internal class EmployeeService : IEmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository _employeeRepository;
         public EmployeeService(IEmployeeRepository employeeRepository)
