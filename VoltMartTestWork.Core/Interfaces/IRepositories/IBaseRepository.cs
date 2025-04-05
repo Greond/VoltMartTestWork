@@ -13,6 +13,6 @@ namespace VoltMartTestWork.Core.Interfaces.IRepositories
         Task<T> CreateEntity(T entity);
         Task<T> UpdateEntity(T entity);
         Task DeleteEntity(T entity);
-        Task<bool> IsExists  (int id);
+        Task<bool> IsExistsEntity  (int id);
     }
 }

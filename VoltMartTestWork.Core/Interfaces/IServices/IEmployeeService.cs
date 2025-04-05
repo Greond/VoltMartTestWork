@@ -13,7 +13,8 @@ namespace VoltMartTestWork.Core.Interfaces.IServices
         Task<Employee> GetEmployee(int id);
         Task<Employee> CreateEmployee(Employee employee);
         Task<Employee> UpdateEmployee(Employee employee);
-        Task<Employee> DeleteEmployee(int id);
+        Task DeleteEmployee(int id);
+        Task DeleteEmployee(Employee employee);
         Task<bool> ExistsEmployee(int id);
 
     }

@@ -9,7 +9,7 @@ using VoltMartTestWork.Core.Interfaces.IRepositories;
 
 namespace VoltMartTestWork.Data.Repositories
 {
-    internal class BaseRepository<T> : IBaseRepository<T> where T : class
+    public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         private readonly AppDbContext _dbContext;
         protected DbSet<T> DbSet => _dbContext.Set<T>();
@@ -47,6 +47,10 @@ namespace VoltMartTestWork.Data.Repositories
         {
             _dbContext.Set<T>().Remove(entity);
             await _dbContext.SaveChangesAsync();
+        }
+        public async Task<bool> IsExistsEntity(int id)// название "id" свойство должно быть одинаково во всех моделях
+        {
+            return await _dbContext.Set<T>().AnyAsync(e => EF.Property<long>(e, "id") == id);
         }
     }
 }
