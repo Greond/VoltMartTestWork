@@ -25,7 +25,6 @@ namespace VoltMartTestWork.UI
             // Регистрация зависимостей
             services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql("Host=localhost;Database=employeedb;Username=postgres;Password=postgres"));
-
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<Main>();
 

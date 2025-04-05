@@ -24,9 +24,9 @@ namespace VoltMartTestWork.Data.Repositories
         }
         public async Task<Employee> GetEmployeeById(int id)
         {
-            return await dbContext.Employees.FindAsync(id);
+            return await dbContext.Employees.FirstOrDefaultAsync(e => e.Id == id);
         }
-        public async Task<int> AddEmployeeAsync(Employee employee)
+        public async Task<Employee> AddEmployeeAsync(Employee employee)
         {
             if (employee == null)
             {
@@ -38,8 +38,8 @@ namespace VoltMartTestWork.Data.Repositories
                 employee.Createat = DateOnly.FromDateTime(DateTime.Now);
                 //операция в бд
                 await dbContext.Employees.AddAsync(employee);
-                return await dbContext.SaveChangesAsync();
-               
+                await dbContext.SaveChangesAsync();
+                return employee;
             }
             catch
             (DbUpdateException ex)  

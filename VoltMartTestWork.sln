@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решен
 		SqlQueryTestTable.sql = SqlQueryTestTable.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoltMartTestWork.Tests", "VoltMartTestWork.Tests\VoltMartTestWork.Tests.csproj", "{59F18B65-0891-45EB-868D-024483203B29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{DF4E5E91-A8B7-42BA-9C4F-B138BB8B85ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF4E5E91-A8B7-42BA-9C4F-B138BB8B85ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF4E5E91-A8B7-42BA-9C4F-B138BB8B85ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59F18B65-0891-45EB-868D-024483203B29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59F18B65-0891-45EB-868D-024483203B29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59F18B65-0891-45EB-868D-024483203B29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59F18B65-0891-45EB-868D-024483203B29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

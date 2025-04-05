@@ -11,7 +11,7 @@ namespace VoltMartTestWork.Core.Interfaces
     {
         public Task<List<Employee>> GetEmployees();
         Task<Employee> GetEmployeeById(int id);
-        Task<int>  AddEmployeeAsync(Employee employee);
+        Task<Employee>  AddEmployeeAsync(Employee employee);
         Task<Employee> UpdateEmployeeAsync(Employee employee);
         Task<bool> DeleteEmployeeAsync(int id);
         Task<bool> ExistsEmployee(int id);
