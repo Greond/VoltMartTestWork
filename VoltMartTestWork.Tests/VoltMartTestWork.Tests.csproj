@@ -20,4 +20,9 @@
     <ProjectReference Include="..\VoltMartTestWork.Data\VoltMartTestWork.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Core\" />
+    <Folder Include="UI\" />
+  </ItemGroup>
+
 </Project>
