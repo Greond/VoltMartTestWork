@@ -1,8 +1,8 @@
 ﻿using Moq;
 using Xunit;
-using VoltMartTestWork.Data;
 using VoltMartTestWork.Data.Repositories;
 using VoltMartTestWork.Core.Models;
+using VoltMartTestWork.Data;
 
 namespace VoltMartTestWork.Tests
 {

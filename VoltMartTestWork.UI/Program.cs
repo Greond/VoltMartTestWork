@@ -1,11 +1,11 @@
 using Microsoft.Extensions.DependencyInjection;
-using VoltMartTestWork.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using VoltMartTestWork.Data;
 using VoltMartTestWork.Data.Repositories;
 using System.Configuration;
 using System;
+using VoltMartTestWork.Core.Interfaces.IRepositories;
+using VoltMartTestWork.Data;
 namespace VoltMartTestWork.UI
 {
     internal static class Program

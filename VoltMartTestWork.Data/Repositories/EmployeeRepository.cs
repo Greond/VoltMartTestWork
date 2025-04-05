@@ -1,12 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VoltMartTestWork.Core.Interfaces;
+using VoltMartTestWork.Core.Interfaces.IRepositories;
 using VoltMartTestWork.Core.Models;
 
 namespace VoltMartTestWork.Data.Repositories
@@ -49,7 +42,7 @@ namespace VoltMartTestWork.Data.Repositories
         }
         public async Task<Employee> UpdateEmployeeAsync(Employee employee)
         {
-            if (!await ExistsEmployee(employee.Id))
+            if (! ExistsEmployee(employee.Id))
             {
                 throw new KeyNotFoundException($"Employee with ID {employee.Id} not found.");
             }
@@ -70,7 +63,7 @@ namespace VoltMartTestWork.Data.Repositories
         }
         public async Task<bool> DeleteEmployeeAsync(int id)
         {
-            if (!await ExistsEmployee(id))
+            if (! ExistsEmployee(id))
             {
                 throw new KeyNotFoundException($"Employee with ID {id} not found.");
             }
@@ -86,9 +79,9 @@ namespace VoltMartTestWork.Data.Repositories
                 throw new DbUpdateException($"Failed update DB. Exception messege: {ex.Message}");
             }
         }
-        public async Task<bool> ExistsEmployee(int id)
+        public bool ExistsEmployee(int id)
         {
-            return await dbContext.Employees.AnyAsync(e => e.Id == id);
+            return dbContext.ChangeTracker.Entries<Employee>().Any(e => e.Entity.Id == id);
         }
     }
 }

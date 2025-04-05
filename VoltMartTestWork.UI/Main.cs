@@ -1,5 +1,5 @@
 using System.ComponentModel;
-using VoltMartTestWork.Core.Interfaces;
+using VoltMartTestWork.Core.Interfaces.IRepositories;
 using VoltMartTestWork.Core.Models;
 using VoltMartTestWork.Data.Repositories;
 
