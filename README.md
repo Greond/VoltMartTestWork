@@ -6,3 +6,6 @@ CRUD операции реализованные на WinForms с помощью
 
 
 SqlQueryTestTable - тестовый sql запрос для теста приложения
+
+
+//ctrl for multi selected (have only multi delete)
