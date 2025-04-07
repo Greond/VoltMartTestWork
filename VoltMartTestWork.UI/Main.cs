@@ -2,6 +2,7 @@ using System.ComponentModel;
 using VoltMartTestWork.Core.Interfaces.IRepositories;
 using VoltMartTestWork.Core.Interfaces.IServices;
 using VoltMartTestWork.Core.Models;
+using System.Linq;
 using VoltMartTestWork.Data.Repositories;
 
 namespace VoltMartTestWork.UI
@@ -87,43 +88,81 @@ namespace VoltMartTestWork.UI
         }
         private async void DeleteButton_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0)
-            {
-                try
-                {
-                    // Получаем выделенную строку
-                    DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
-
-                    // Получаем объект Employee, связанный с выделенной строкой
-                    Employee employeeToDelete = (Employee)selectedRow.DataBoundItem;
-
-                    if (employeeToDelete != null)
-                    {
-                        //Отображаем сообщение с подтверждением удаления
-                        DialogResult result = MessageBox.Show($"Вы уверены, что хотите удалить сотрудника '{employeeToDelete.Firstname} {employeeToDelete.Lastname}'?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                        if (result == DialogResult.Yes)
-                        {
-                            // Удаляем сотрудника из базы данных
-                            await _employeeService.DeleteEmployee(employeeToDelete.Id);
-
-
-                            //Обновляем DataGridView
-                            await LoadData();
-
-                            MessageBox.Show("Сотрудник успешно удален.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ошибка при удалении сотрудника: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
+            // Проверяем, выбрана ли хотя бы одна строка
+            if (dataGridView1.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Пожалуйста, выберите строку для удаления.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Выходим из метода, если ничего не выбрано
             }
+            try
+            {
+                bool multipleRowsSelected = dataGridView1.SelectedRows.Count > 1;
+
+                string confirmationMessage = multipleRowsSelected
+                ? "Вы уверены, что хотите удалить выделенных сотрудников?"
+                : $"Вы уверены, что хотите удалить сотрудника '{GetEmployeeFromSelectedRow()?.Firstname} {GetEmployeeFromSelectedRow()?.Lastname}'?";
+
+                // Запрашиваем подтверждение у пользователя
+                DialogResult result = MessageBox.Show(confirmationMessage, "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Удаляем сотрудников
+                    if (multipleRowsSelected)
+                    {
+                        await DeleteMultipleEmployeesAsync();
+                    }
+                    else
+                    {
+                        await DeleteSingleEmployeeAsync();
+                    }
+
+                    // Обновляем данные в DataGridView
+                    await LoadData();
+
+                    // Отображаем сообщение об успешном удалении
+                    MessageBox.Show("Сотрудники успешно удалены.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Обрабатываем ошибки
+                MessageBox.Show($"Ошибка при удалении сотрудников: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+        private Employee GetEmployeeFromSelectedRow()
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+                return selectedRow.DataBoundItem as Employee;
+            }
+            return null;
+        }
+        private async Task DeleteSingleEmployeeAsync()
+        {
+            Employee employeeToDelete = GetEmployeeFromSelectedRow();
+            if (employeeToDelete != null)
+            {
+                await _employeeService.DeleteEmployee(employeeToDelete); // Используем Id для удаления
+            }
+        }
+        private async Task DeleteMultipleEmployeesAsync()
+        {
+            // получаем выделенные строки
+            IEnumerable<DataGridViewRow> selectedRows = dataGridView1.SelectedRows.Cast<DataGridViewRow>();
+
+            // удаляем сотрудников
+            foreach (DataGridViewRow selectedRow in selectedRows)
+            {
+                Employee employee = selectedRow.DataBoundItem as Employee;
+                if (employee != null)
+                {
+                    await _employeeService.DeleteEmployee(employee);
+                }
+            }
+
         }
         private async Task LoadData()
         {
