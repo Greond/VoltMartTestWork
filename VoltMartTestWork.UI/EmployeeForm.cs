@@ -35,10 +35,11 @@ namespace VoltMartTestWork.UI
 
             SetEmployeeToForm(employee);
         }
-        private void SaveButton_Click(object sender, EventArgs e)
+        private void SaveButton_Click(object sender, EventArgs e) 
         {
             try
             {
+                //валидацию монжо перенести в Service при необходимости
                 //устанавливаем свойства в обьект
                 SetEmployee();
                 // валидируем обьект перед его сохранением

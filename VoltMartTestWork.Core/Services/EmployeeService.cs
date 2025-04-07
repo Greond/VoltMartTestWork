@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,11 +27,13 @@ namespace VoltMartTestWork.Core.Services
         }
         public async Task<Employee> CreateEmployee(Employee employee)
         {
+            if(ValidateEmployee(employee))
            employee.Createat = DateOnly.FromDateTime(DateTime.Today);
            return await _employeeRepository.CreateEntity(employee);
         }
         public async Task<Employee> UpdateEmployee(Employee employee)
         {
+            if(ValidateEmployee(employee))
             employee.Updateat = DateOnly.FromDateTime(DateTime.Today);
             return await _employeeRepository.UpdateEntity(employee);
         }
@@ -46,6 +49,19 @@ namespace VoltMartTestWork.Core.Services
         public Task<bool> ExistsEmployee(int id)
         {
             return _employeeRepository.IsExistsEntity(id);
+        }
+        private bool ValidateEmployee(Employee employee)
+        {
+            var results = new List<ValidationResult>();
+            var context = new ValidationContext(employee);
+            bool isValid = Validator.TryValidateObject(employee, context, results, true);
+            if (!isValid)
+            {
+                // Отображаем ошибки валидации
+                string errorMessage = string.Join(Environment.NewLine, results.Select(v => v.ErrorMessage));
+                throw new Exception(errorMessage);
+            }
+            return true;
         }
     }
 }
