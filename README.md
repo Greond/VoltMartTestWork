@@ -9,3 +9,8 @@ SqlQueryTestTable - тестовый sql запрос для теста прил
 
 
 //ctrl for multi selected (have only multi delete)
+# Table
+![Grafic](Screens/1.png)
+# Program
+![Grafic](Screens/2.png)
+![Grafic](Screens/3.png)
