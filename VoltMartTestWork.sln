@@ -14,7 +14,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решен
 		SqlQueryTestTable.sql = SqlQueryTestTable.sql
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoltMartTestWork.Tests", "VoltMartTestWork.Tests\VoltMartTestWork.Tests.csproj", "{59F18B65-0891-45EB-868D-024483203B29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoltMartTestWork.Tests", "VoltMartTestWork.Tests\VoltMartTestWork.Tests.csproj", "{59F18B65-0891-45EB-868D-024483203B29}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScreenShots", "ScreenShots", "{7EF4A71E-3ACB-4BA3-BE53-E57AB86D38CF}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Desktop\1235.png = ..\..\..\Desktop\1235.png
+		..\..\..\Desktop\4324234б.png = ..\..\..\Desktop\4324234б.png
+		..\..\..\Desktop\456576.png = ..\..\..\Desktop\456576.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +48,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7EF4A71E-3ACB-4BA3-BE53-E57AB86D38CF} = {FDFCF31E-E9AF-4C60-92CD-EE6A78CBCA02}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8ECAED2D-4836-4FC9-B22D-53F754B3ABAD}
